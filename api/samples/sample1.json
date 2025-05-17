@@ -1,0 +1,14 @@
+{
+  "context": "Translate and optimize for Spanish-speaking audience. Post only in the evening. Avoid weekends.",
+  "tweets": [
+    { "text": "Join our live event tomorrow!", "timestamp": 1718000000 }
+  ],
+  "preferred_frequency": "daily",
+  "max_posts_per_day": 1,
+  "current_timezone": "Europe/Madrid",
+  "is_translation_needed": true,
+  "language_to_translate": "es",
+  "historical_tweets": [
+    { "text": "Check out our new product!", "timestamp": 1717000000 }
+  ]
+}
