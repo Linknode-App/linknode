@@ -27,7 +27,9 @@ You can schedule tweets by sending a POST request to `/api/schedule`.
 {
   "context": "Translate and optimize for French audience. Post only in the morning.",
   "tweets": [
-    { "text": "Good morning! Join our webinar.", "timestamp": 1718000000 }
+    { "text": "Good morning! Join our webinar.", "timestamp": 1718000000 },
+    { "text": "Exclusive offer for our followers!", "timestamp": 1718086400 },
+    { "text": "Don't miss our weekend surprise!", "timestamp": 1718172800 }
   ],
   "preferred_frequency": "daily",
   "max_posts_per_day": 1,

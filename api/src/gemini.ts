@@ -68,19 +68,6 @@ You are a social media scheduling assistant. Your job is to optimize tweet posti
 - If the context or parameters suggest, you may also rewrite or improve the tweet text for clarity, engagement, or localization.
 - Respond ONLY with the JSON array, no explanations or markdown.\n`;
 
-  prompt += `Here are some example scenarios:\n\n`;
-  prompt += `Context: "Our audience is most active during weekday evenings (6pm-9pm UTC). Avoid weekends."\nTweets:\n`;
-  prompt += `1. "Check out our new product!" at "2024-06-01T10:00:00Z"\n2. "Don't miss our live Q&A tomorrow!" at "2024-06-02T15:00:00Z"\n\n`;
-  prompt += `Expected output:\n[{"text": "Check out our new product!", "timestamp": "2024-06-03T18:00:00Z"}, {"text": "Don't miss our live Q&A tomorrow!", "timestamp": "2024-06-03T19:00:00Z"}]\nExplanation: This is a good example because the tweets were moved from the weekend to weekday evenings, matching the context's guidance and maximizing engagement.\n\n`;
-  prompt += `Context: "This is a campaign for a new video game. Peak engagement is Friday nights and Saturday mornings."\nTweets:\n`;
-  prompt += `1. "Game launch trailer drops soon!" at "2024-06-05T12:00:00Z"\n2. "Join our launch event!" at "2024-06-06T14:00:00Z"\n\n`;
-  prompt += `Expected output:\n[{"text": "Game launch trailer drops soon!", "timestamp": "2024-06-07T19:00:00Z"}, {"text": "Join our launch event!", "timestamp": "2024-06-08T09:00:00Z"}]\nExplanation: This is a good example because the tweets were rescheduled to the campaign's peak engagement times (Friday night and Saturday morning).\n\n`;
-  prompt += `Context: "No special audience pattern."\nTweets:\n`;
-  prompt += `1. "Hello world!" at "2024-06-01T10:00:00Z"\n\n`;
-  prompt += `Expected output:\n[{"text": "Hello world!", "timestamp": "2024-06-01T10:00:00Z"}]\nExplanation: This is a good example because the context does not suggest any changes, so the original time is kept.\n\n`;
-  prompt += `Context: "Our audience is in the US and Europe. Avoid posting between 12am and 6am in both time zones."\nTweets:\n`;
-  prompt += `1. "Early morning update" at "2024-06-01T03:00:00Z"\n\n`;
-  prompt += `Expected output:\n[{"text": "Early morning update", "timestamp": "2024-06-01T12:00:00Z"}]\nExplanation: This is a good example because the tweet was moved out of the inactive window for both US and Europe.\n\n`;
   prompt += `Context: "${context}"\nTweets:\n`;
   tweets.forEach((tweet, i) => {
     prompt += `${i + 1}. "${tweet.text}" at "${toISO8601(tweet.timestamp)}"\n`;

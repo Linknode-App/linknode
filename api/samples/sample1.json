@@ -1,7 +1,9 @@
 {
   "context": "Translate and optimize for Spanish-speaking audience. Post only in the evening. Avoid weekends.",
   "tweets": [
-    { "text": "Join our live event tomorrow!", "timestamp": 1718000000 }
+    { "text": "Join our live event tomorrow!", "timestamp": 1718000000 },
+    { "text": "Exclusive offer for our followers!", "timestamp": 1718086400 },
+    { "text": "Don't miss our weekend surprise!", "timestamp": 1718172800 }
   ],
   "preferred_frequency": "daily",
   "max_posts_per_day": 1,
@@ -9,6 +11,8 @@
   "is_translation_needed": true,
   "language_to_translate": "es",
   "historical_tweets": [
-    { "text": "Check out our new product!", "timestamp": 1717000000 }
+    { "text": "Check out our new product!", "timestamp": 1717000000 },
+    { "text": "Thank you for 10k followers!", "timestamp": 1717086400 },
+    { "text": "Our summer sale starts now!", "timestamp": 1717172800 }
   ]
 }
