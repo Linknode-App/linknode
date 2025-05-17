@@ -6,3 +6,7 @@
 - create timestamp
 - rearrange given a post and new timestamp
 
+MCP Server urls:
+- Main MCP: https://main-mcp.chalmersbrown-app.workers.dev/
+- Create Post MCP: https://create-post-mcp.chalmersbrown-app.workers.dev/
+- Post Scheduler MCP: https://post-scheduler-mcp.chalmersbrown-app.workers.dev/
