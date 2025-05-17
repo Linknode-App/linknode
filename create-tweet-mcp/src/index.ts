@@ -5,54 +5,35 @@ import { z } from "zod";
 // Define our MCP agent with tools
 export class MyMCP extends McpAgent {
 	server = new McpServer({
-		name: "Authless Calculator",
+		name: "Tweet Creator",
 		version: "1.0.0",
 	});
 
 	async init() {
-		// Simple addition tool
+		// Tweet creation tool
 		this.server.tool(
-			"add",
-			{ a: z.number(), b: z.number() },
-			async ({ a, b }) => ({
-				content: [{ type: "text", text: String(a + b) }],
-			})
-		);
-
-		// Calculator tool with multiple operations
-		this.server.tool(
-			"calculate",
+			"createTweet",
 			{
-				operation: z.enum(["add", "subtract", "multiply", "divide"]),
-				a: z.number(),
-				b: z.number(),
+				message: z.string().max(280), // Twitter's character limit
+				username: z.string(),
+				scheduledTime: z.string().datetime(), // ISO 8601 datetime string
 			},
-			async ({ operation, a, b }) => {
-				let result: number;
-				switch (operation) {
-					case "add":
-						result = a + b;
-						break;
-					case "subtract":
-						result = a - b;
-						break;
-					case "multiply":
-						result = a * b;
-						break;
-					case "divide":
-						if (b === 0)
-							return {
-								content: [
-									{
-										type: "text",
-										text: "Error: Cannot divide by zero",
-									},
-								],
-							};
-						result = a / b;
-						break;
-				}
-				return { content: [{ type: "text", text: String(result) }] };
+			async ({ message, username, scheduledTime }) => {
+				const tweet = {
+					message,
+					username,
+					scheduledTime,
+					createdAt: new Date().toISOString(),
+				};
+
+				return {
+					content: [
+						{
+							type: "text",
+							text: JSON.stringify(tweet, null, 2),
+						},
+					],
+				};
 			}
 		);
 	}
