@@ -14,3 +14,15 @@ Authenticated
 - Main MCP: https://main-mcp.chalmersbrown-app.workers.dev/
 - Create Post MCP: https://create-post-mcp.chalmersbrown-app.workers.dev/
 - Post Scheduler MCP: https://post-scheduler-mcp.chalmersbrown-app.workers.dev/
+
+## Cloudflare
+- Example of spinning up new MCP server on cloudlfare: 
+```
+npm create cloudflare@latest -- tweet-scheduler-mcp --template=cloudflare/ai/demos/remote-mcp-authless
+```
+
+## Debug
+Test the remote server using Inspector:
+```
+npx @modelcontextprotocol/inspector@latest
+```
