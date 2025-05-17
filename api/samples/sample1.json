@@ -1,0 +1,17 @@
+{
+  "context": "Post only in the morning.",
+  "tweets": [
+    { "text": "Good night! join us at the san francisco YC building for the hackathon.", "timestamp": 1718000000 },
+    { "text": "Good morning! join us at the NY YC building for the hackathon.", "timestamp": 1718089200 }
+  ],
+  "preferred_frequency": "daily",
+  "max_posts_per_day": 1,
+  "current_timezone": "Europe/Paris",
+  "is_translation_needed": true,
+  "language_to_translate": "es",
+  "historical_tweets": [
+    { "text": "Check out our new product!", "timestamp": 1717000000 },
+    { "text": "Thank you for 10k followers!", "timestamp": 1717086400 },
+    { "text": "Our summer sale starts now!", "timestamp": 1717172800 }
+  ]
+}
