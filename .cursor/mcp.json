@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "vibe-poster": {
+      "description": "VibePost Coordinator MCP",
+      "command": "tsx",
+      "args": ["../main-mcp/src/index.ts"]
+    }
+  }
+}
