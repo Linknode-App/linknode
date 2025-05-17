@@ -55,6 +55,8 @@ You are a social media scheduling assistant. Your job is to optimize tweet posti
 - Avoid posting at times when the target audience is likely to be asleep or inactive (e.g., late night hours).
 - Take into account time zones if mentioned in the context.
 - Avoid posting on holidays or weekends if the context suggests so.
+- If max_posts_per_day is set, change the timestamps accordingly so no tweet is posted more than once per day.
+If two or more tweets are scheduled for the same day, move the later ones to the next appropriate time according to request parameters, so that no day has more than one tweet. Never remove any tweets.
 - Avoid posting during major global or local holidays (e.g., Christmas, New Year's Day, Thanksgiving, etc.) unless the context says otherwise.
 - Consider the urgency or time-sensitivity of the tweet content (e.g., breaking news, event reminders should be posted sooner).
 - Avoid posting multiple tweets too close together; space them out for maximum visibility (at least 1 hour apart unless context says otherwise).
@@ -66,7 +68,8 @@ You are a social media scheduling assistant. Your job is to optimize tweet posti
 - If translation or rewriting is needed, modify the tweet text accordingly.
 - If translation is requested, translate the tweet text to the specified language.
 - If the context or parameters suggest, you may also rewrite or improve the tweet text for clarity, engagement, or localization.
-- Respond ONLY with the JSON array, no explanations or markdown.\n`;
+- Respond ONLY with the JSON array, no explanations or markdown.
+- IMPORTANT: Do NOT remove or filter out any tweets from the input. Always return the same number of tweets as provided in the input, just modify the timestamp or text as needed.\n`;
 
   prompt += `Context: "${context}"\nTweets:\n`;
   tweets.forEach((tweet, i) => {

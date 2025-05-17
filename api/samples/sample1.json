@@ -1,13 +1,12 @@
 {
-  "context": "Translate and optimize for Spanish-speaking audience. Post only in the evening. Avoid weekends.",
+  "context": "Post only in the morning.",
   "tweets": [
-    { "text": "Join our live event tomorrow!", "timestamp": 1718000000 },
-    { "text": "Exclusive offer for our followers!", "timestamp": 1718086400 },
-    { "text": "Don't miss our weekend surprise!", "timestamp": 1718172800 }
+    { "text": "Good night! join us at the san francisco YC building for the hackathon.", "timestamp": 1718000000 },
+    { "text": "Good morning! join us at the NY YC building for the hackathon.", "timestamp": 1718089200 }
   ],
   "preferred_frequency": "daily",
   "max_posts_per_day": 1,
-  "current_timezone": "Europe/Madrid",
+  "current_timezone": "Europe/Paris",
   "is_translation_needed": true,
   "language_to_translate": "es",
   "historical_tweets": [
