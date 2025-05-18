@@ -24,8 +24,8 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ description }) => { // Handler function
 				// URLs for the dependent MCP services from README.md
-				const createPostMCPUrl = 'https://create-post-mcp.chalmersbrown-app.workers.dev/';
-				const postSchedulerMCPUrl = 'https://post-scheduler-mcp.chalmersbrown-app.workers.dev/';
+				const createPostMCPUrl = 'https://create-tweet-mcp.chalmersbrown-app.workers.dev/';
+				const postSchedulerMCPUrl = 'https://tweet-scheduler-mcp.chalmersbrown-app.workers.dev/';
 		
 				let createPostClient;
 				let postSchedulerClient;
@@ -34,7 +34,7 @@ export class MyMCP extends McpAgent {
 		
 				try {
 					// Initialize MCP clients for dependent services
-					console.error(`[vibe-poster] Connecting to Create Post MCP at ${createPostMCPUrl}`);
+					console.error(`[vibe-poster] Connecting to Create Tweet MCP at ${createPostMCPUrl}`);
 					createPostClient = await experimental_createMCPClient({
 						transport: { type: 'sse', url: createPostMCPUrl },
 						// Note: If these endpoints require authentication (e.g., Bearer token),
@@ -42,24 +42,24 @@ export class MyMCP extends McpAgent {
 						// headers: { 'Authorization': 'Bearer YOUR_TOKEN' }
 						// This depends on the auth mechanism of the target MCPs and SSE client capabilities.
 					});
-					console.error('[vibe-poster] Connected to Create Post MCP.');
+					console.error('[vibe-poster] Connected to Create Tweet MCP.');
 		
-					console.error(`[vibe-poster] Connecting to Post Scheduler MCP at ${postSchedulerMCPUrl}`);
+					console.error(`[vibe-poster] Connecting to Tweet Scheduler MCP at ${postSchedulerMCPUrl}`);
 					postSchedulerClient = await experimental_createMCPClient({
 						transport: { type: 'sse', url: postSchedulerMCPUrl },
 					});
-					console.error('[vibe-poster] Connected to Post Scheduler MCP.');
+					console.error('[vibe-poster] Connected to Tweet Scheduler MCP.');
 		
 					// Fetch tools from dependent services
-					console.error('[vibe-poster] Fetching tools from Create Post MCP...');
+					console.error('[vibe-poster] Fetching tools from Create Tweet MCP...');
 					const toolSetCreatePost = await createPostClient.tools();
 					const createPostToolNames = Object.keys(toolSetCreatePost).join(', ') || 'none';
-					console.error(`[vibe-poster] Fetched tools from Create Post MCP: ${createPostToolNames}`);
+					console.error(`[vibe-poster] Fetched tools from Create Tweet MCP: ${createPostToolNames}`);
 		
-					console.error('[vibe-poster] Fetching tools from Post Scheduler MCP...');
+					console.error('[vibe-poster] Fetching tools from Tweet Scheduler MCP...');
 					const toolSetPostScheduler = await postSchedulerClient.tools();
 					const postSchedulerToolNames = Object.keys(toolSetPostScheduler).join(', ') || 'none';
-					console.error(`[vibe-poster] Fetched tools from Post Scheduler MCP: ${postSchedulerToolNames}`);
+					console.error(`[vibe-poster] Fetched tools from Tweet Scheduler MCP: ${postSchedulerToolNames}`);
 		
 					// Combine toolsets
 					const allTools = {
@@ -68,7 +68,7 @@ export class MyMCP extends McpAgent {
 					};
 		
 					if (Object.keys(allTools).length === 0) {
-						const errorMsg = "[vibe-poster] Critical: No tools loaded from dependent MCPs (create-post-mcp, post-scheduler-mcp). Ensure they are running, accessible via their URLs, and correctly exposing tools. Also check for any authentication issues if applicable.";
+						const errorMsg = "[vibe-poster] Critical: No tools loaded from dependent MCPs (create-tweet-mcp, tweet-scheduler-mcp). Ensure they are running, accessible via their URLs, and correctly exposing tools. Also check for any authentication issues if applicable.";
 						console.error(errorMsg);
 						return { content: [{ type: 'text', text: errorMsg }] };
 					}
@@ -82,13 +82,13 @@ export class MyMCP extends McpAgent {
 						system: `You are an AI assistant named "Vibe Poster Coordinator".
 		Your task is to manage the creation and scheduling of social media posts based on user requests.
 		You have access to specialized tools from two services:
-		1. Tools from 'Create Post MCP': These tools will help you generate the content of the post. They are expected to handle the creative aspects and return structured post data (likely a JSON object that might include a timestamp).
-		2. Tools from 'Post Scheduler MCP': These tools will help you schedule the generated post. They will likely require the post data (e.g., the JSON object from the creation step) and timing information.
+		1. Tools from 'Create Tweet MCP': These tools will help you generate the content of the post. They are expected to handle the creative aspects and return structured post data (likely a JSON object that might include a timestamp).
+		2. Tools from 'Tweet Scheduler MCP': These tools will help you schedule the generated post. They will likely require the post data (e.g., the JSON object from the creation step) and timing information.
 		
 		Follow these steps meticulously:
 		- Analyze the user's description to understand the desired post content and schedule.
-		- First, use an appropriate tool from 'Create Post MCP' to generate the post content.
-		- Once the content is successfully generated, use an appropriate tool from 'Post Scheduler MCP' to schedule it.
+		- First, use an appropriate tool from 'Create Tweet MCP' to generate the post content.
+		- Once the content is successfully generated, use an appropriate tool from 'Tweet Scheduler MCP' to schedule it.
 		- Provide a clear summary of the actions taken, the results from each tool call, and the final outcome. If any step fails, report it clearly.
 		
 		You MUST use the provided tools to accomplish these tasks. Do not attempt to create or schedule posts by just generating text.
@@ -137,19 +137,19 @@ export class MyMCP extends McpAgent {
 					}
 					
 					return {
-						content: [{ type: 'text', text: errorMessage + " Check server logs for vibe-poster and potentially the downstream MCP services (create-post-mcp, post-scheduler-mcp) for more details." }],
+						content: [{ type: 'text', text: errorMessage + " Check server logs for vibe-poster and potentially the downstream MCP services (create-tweet-mcp, tweet-scheduler-mcp) for more details." }],
 					};
 				} finally {
 					console.error('[vibe-poster] Attempting to close downstream MCP clients...');
 					const clientClosePromises = [];
 					if (createPostClient) {
 						clientClosePromises.push(
-							createPostClient.close().catch(e => console.error("[vibe-poster] Error closing Create Post MCP client:", e))
+							createPostClient.close().catch(e => console.error("[vibe-poster] Error closing Create Tweet MCP client:", e))
 						);
 					}
 					if (postSchedulerClient) {
 						clientClosePromises.push(
-							postSchedulerClient.close().catch(e => console.error("[vibe-poster] Error closing Post Scheduler MCP client:", e))
+							postSchedulerClient.close().catch(e => console.error("[vibe-poster] Error closing Tweet Scheduler MCP client:", e))
 						);
 					}
 					await Promise.allSettled(clientClosePromises);
