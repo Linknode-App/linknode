@@ -77,7 +77,7 @@ export class MyMCP extends McpAgent {
 					// Call Anthropic model using generateText with the combined tools
 					console.error('[vibe-poster] Calling Anthropic model via generateText...');
 					const { text, toolCalls, toolResults, finishReason, usage, warnings } = await generateText({
-						model: anthropic('claude-3-haiku-20240307'), // Using Haiku for potentially faster/cheaper iterations. Can be switched to Opus.
+						model: anthropic('claude-3-7-sonnet-20250219'), // Using Haiku for potentially faster/cheaper iterations. Can be switched to Opus.
 						tools: allTools,
 						system: `You are an AI assistant named "Vibe Poster Coordinator".
 		Your task is to manage the creation and scheduling of social media posts based on user requests.
