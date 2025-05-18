@@ -24,8 +24,8 @@ export class MyMCP extends McpAgent {
 			},
 			async ({ description }) => { // Handler function
 				// URLs for the dependent MCP services from README.md
-				const createPostMCPUrl = 'https://create-tweet-mcp.chalmersbrown-app.workers.dev/';
-				const postSchedulerMCPUrl = 'https://tweet-scheduler-mcp.chalmersbrown-app.workers.dev/';
+				const createPostMCPUrl = 'https://create-tweet-mcp.chalmersbrown-app.workers.dev/sse';
+				const postSchedulerMCPUrl = 'https://tweet-scheduler-mcp.chalmersbrown-app.workers.dev/sse';
 		
 				let createPostClient;
 				let postSchedulerClient;
