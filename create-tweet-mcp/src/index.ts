@@ -36,6 +36,53 @@ export class MyMCP extends McpAgent {
 				};
 			}
 		);
+
+		// Schedule tweets tool
+		this.server.tool(
+			"scheduleTweets",
+			{
+				tweets: z.array(z.object({
+					text: z.string(),
+					timestamp: z.string().datetime(),
+					readable_time: z.string().optional()
+				})),
+				context: z.string()
+			},
+			async ({ tweets, context }) => {
+				try {
+					const response = await fetch('http://localhost:3300/api/schedule', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ tweets, context })
+					});
+
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+
+					const result = await response.json();
+					return {
+						content: [
+							{
+								type: "text",
+								text: JSON.stringify(result, null, 2),
+							},
+						],
+					};
+				} catch (error) {
+					return {
+						content: [
+							{
+								type: "text",
+								text: `Error scheduling tweets: ${error.message}`,
+							},
+						],
+					};
+				}
+			}
+		);
 	}
 }
 
