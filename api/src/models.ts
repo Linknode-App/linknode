@@ -1,11 +1,15 @@
 export interface TweetInput {
   text: string;
-  timestamp: number; // Only Unix timestamp in input
+  /**
+   * Optional: ISO 8601 string timestamp. If not provided, the system will use a default or current time.
+   */
+  timestamp?: string;
 }
 
 export interface Tweet {
   text: string;
-  timestamp: number; // always Unix timestamp in output
+  timestamp: string; // ISO 8601 string in output
+  readable_time?: string;
 }
 
 export interface ScheduleRequest {
@@ -20,9 +24,17 @@ export interface ScheduleRequest {
    */
   max_posts_per_day?: number;
   /**
-   * Optional: Current timezone of the user or audience (e.g., 'America/New_York')
+   * Optional: Current time in ISO 8601 format (e.g., for scheduling reference)
+   */
+  current_time?: string;
+  /**
+   * Optional: Current timezone of the user or system (e.g., 'America/New_York')
    */
   current_timezone?: string;
+  /**
+   * Optional: Target audience timezone (e.g., 'Europe/Paris')
+   */
+  audience_timezone?: string;
   /**
    * Optional: Whether translation is needed for the tweets
    */

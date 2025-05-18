@@ -51,12 +51,13 @@ app.post("/api/schedule", async (req, res) => {
     const revisedTweets: Tweet[] = await getRevisedTweetsWithGemini(body);
     const response: ScheduleResponse = { tweets: revisedTweets };
 
-    // Prepare output with ISO 8601 timestamps
+    // Prepare output with ISO 8601 timestamps and readable_time
     const output = {
       ...response,
       tweets: response.tweets.map(t => ({
         text: t.text,
-        timestamp: DateTime.fromSeconds(t.timestamp, { zone: "utc" }).toISO({ suppressMilliseconds: true })
+        timestamp: t.timestamp, // already ISO 8601
+        ...(t.readable_time ? { readable_time: t.readable_time } : {})
       }))
     };
     // Generate filename with current date and time
@@ -64,7 +65,7 @@ app.post("/api/schedule", async (req, res) => {
     const filename = `schedule_output_${now.toFormat("yyyy-LL-dd_HH-mm-ss")}.json`;
     fs.writeFileSync(filename, JSON.stringify(output, null, 2), "utf-8");
 
-    res.json(response);
+    res.json(output);
   } catch (e) {
     console.error("[API] Error:", e);
     res.status(500).json({ error: "Internal server error" });
